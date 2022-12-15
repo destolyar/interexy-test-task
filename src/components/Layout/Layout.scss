@@ -1,9 +1,40 @@
-.layout {
-  &-header {
+@import '../../styles/utils.scss';
 
+.header, .footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+}
+
+.header {
+  border-bottom: 1px solid #cfcfcf;
+  &__links {
+    display: flex;
+    align-items: center;
+
+    &__link {
+      padding: 20px;
+      margin-right: 15px;
+      color: $main-text;
+      text-decoration: none;
+      transition: .3s;
+
+      &:hover {
+        color: $hover-text;
+      }
+    }
   }
 
-  &-footer {
+  &__user {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.footer {
+  background-color: $footer-background;
+  &__title {
 
   }
 }
