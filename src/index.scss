@@ -1,7 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
 
 body {
+  min-height: 100vh;
   font-family: 'Open Sans', sans-serif;
   margin: 0;
   color: #191b20;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
 }

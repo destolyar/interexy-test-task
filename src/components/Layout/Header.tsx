@@ -4,6 +4,7 @@ import { UserIconSVG } from "./UserIconSVG"
 
 export const Header = () => {
   const [isAuthorized, setIsAuthorized] = useState(false)
+  
   return (
     <header className="header">
       <nav className="header__links">
