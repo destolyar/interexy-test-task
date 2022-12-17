@@ -1,24 +1,25 @@
-import { Table, TableBody, TableRow } from "@mui/material";
-import { useEffect, useState } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import TableCell from "@mui/material/TableCell";
-import TableFooter from "@mui/material/TableFooter";
-import TablePagination from "@mui/material/TablePagination";
+import { Pagination } from "@mui/material";
+import { ChangeEvent, useEffect, useState } from "react";
+import { CharacterInterface, CharactersObject } from "./types";
 import './Home.scss';
+import { Character } from "./Character";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export const Home = () => {
-  const [page, setPage] = useState(0);
-  const [countOfCharacters, setCountOfCharacters] = useState(1)
-  const [characters, setCharacters] = useState<Character[]>([] as Character[])
+  const [page, setPage] = useState<number>(1);
+  const [countOfPages, setCountOfPages] = useState<number>(1)
+  const [characters, setCharacters] = useState<CharacterInterface[]>([])
+  const [isloaderVisible, setIsLoaderVisible] = useState<boolean>(true)
 
   const getCharacters = async (currentPage: number) => {
-    const response: CharactersObject = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPage + 1}`).then(data => data.json())
-    setCountOfCharacters(response.info.count)
+    const response: CharactersObject = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPage}`).then(data => data.json())
+    setCountOfPages(response.info.pages)
     setCharacters(response.results)
   }
 
   const handlePageChange = async (
-    _event: React.MouseEvent<HTMLButtonElement> | null,
+    _event: ChangeEvent<unknown>,
     newPage: number) => {
     setPage(newPage)
     getCharacters(newPage)
@@ -28,91 +29,24 @@ export const Home = () => {
     getCharacters(page)
   }, [])
 
-  const tableTheme = createTheme({
-    components: {
-      MuiTable: {
-        styleOverrides: {
-          root: {
-            flex: 1,
-            display: "flex",
-            flexDirection: "column"
-          }
-        }
-      },
-      MuiTableRow: {
-        styleOverrides: {
-          root: {
-            display: "block"
-          }
-        }
-      },
-      MuiTableCell: {
-        styleOverrides: {
-          root: {
-            display: "block",
-            border: 0,
-            padding: "5px 0px"
-          }
-        }
-      }
-    }
-  })
-
   return (
-    <ThemeProvider theme={tableTheme}>
-      <Table className="home__table">
-        <TableBody className="home__table__body">
+    <>
+      <h1 className="home__title">Characters</h1>
+      <div className="container-fluid d-flex justify-content-between p-0">
+        <div className="row g-0 g-sm-5">
           {characters.map((character, index) =>
-            <TableRow key={index}>
-              <TableCell>{character.name}</TableCell>
-            </TableRow>
+            <Character characterInfo={character} key={index} />
           )}
-        </TableBody>
-        <TableFooter className="home__table__footer">
-          <TableRow>
-            <TablePagination
-              count={countOfCharacters}
-              page={page}
-              onPageChange={handlePageChange}
-              rowsPerPage={20}
-              rowsPerPageOptions={[]}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </ThemeProvider>
+        </div>
+      </div>
+      <Pagination
+        size="medium"
+        className="home__pagination"
+        count={countOfPages}
+        page={page}
+        onChange={handlePageChange}
+      />
+    </>
   )
 }
 
-interface CharactersObject {
-  info: CharactersInfo,
-  results: Character[]
-}
-
-interface CharactersInfo {
-  count: number,
-  next: string | null,
-  pages: number,
-  orev: string | null
-}
-
-interface Character {
-  created: string,
-  episode: string[],
-  gender: string,
-  id: number,
-  image: string,
-  location: {
-    name: string,
-    url: string
-  },
-  name: string,
-  origin: {
-    name: string,
-    url: string
-  },
-  species: string,
-  status: string,
-  type: string,
-  url: string
-}
