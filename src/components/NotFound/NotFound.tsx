@@ -1,7 +1,9 @@
 export const NotFound = () => {
   return(
     <main>
-      Not found
+      <form action="">
+        
+      </form>
     </main>
   )
 }
