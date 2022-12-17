@@ -24,10 +24,12 @@ export const HomePage = () => {
     window.history.replaceState({}, '', url + '?' + urlParams);
   }
 
+
   const handlePageChange = async (
     _event: ChangeEvent<unknown>,
     newPage: number) => {
     updateURL(newPage)
+    sessionStorage.setItem("lastChartersPage", newPage.toString())
     setPage(newPage)
     getCharacters(newPage)
   }
@@ -35,10 +37,13 @@ export const HomePage = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const urlParamPage = urlParams.get("page")
+    const sessionStoragePage = sessionStorage.getItem("lastChartersPage")
 
-    if (urlParamPage) {
-      setPage(+urlParamPage)
-      getCharacters(+urlParamPage)
+    if (urlParamPage || sessionStoragePage) {
+      const savedPage = urlParamPage ? +urlParamPage : sessionStoragePage ? +sessionStoragePage : 0
+      setPage(savedPage)
+      updateURL(savedPage)
+      getCharacters(savedPage)
     } else {
       getCharacters(page)
     }
@@ -47,7 +52,7 @@ export const HomePage = () => {
   }, [])
 
   return (
-    <section className="home">
+    <main className="home">
       <h1 className="home__title">Characters</h1>
       <div className="container-fluid d-flex justify-content-between p-0">
         <div className="row g-0 g-sm-5">
@@ -63,6 +68,6 @@ export const HomePage = () => {
         page={page}
         onChange={handlePageChange}
       />
-    </section>
+    </main>
   )
 }

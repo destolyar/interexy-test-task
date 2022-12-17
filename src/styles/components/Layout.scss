@@ -11,15 +11,6 @@
   }
 }
 
-.main {
-  position: relative;
-  flex: 1;
-  padding: 20px 40px;
-
-  @include phones {
-    padding: 15px;
-  }
-}
 
 .header {
   border-bottom: 1px solid #cfcfcf;
@@ -47,6 +38,10 @@
 }
 
 .footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  height: 40px;
   justify-content: center;
   background-color: $footer-background;
   

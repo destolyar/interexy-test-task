@@ -6,10 +6,8 @@ import '../../styles/components/Layout.scss'
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <Header />
-      <main className="main">
+      <Header />      
         {children}
-      </main>
       <Footer />
     </>
   )
