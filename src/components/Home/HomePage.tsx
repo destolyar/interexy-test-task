@@ -1,9 +1,9 @@
 import { Pagination } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
-import { CharacterInterface, CharactersObject } from "./types";
 import { Character } from "./Character";
-import './Home.scss';
+import '../../styles/components/HomePage.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CharacterInterface, CharactersObject } from "../../types/Characters";
 
 export const Home = () => {
   const [page, setPage] = useState<number>(1);

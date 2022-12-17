@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
-import './Layout.scss'
+import '../../styles/components/Layout.scss'
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
