@@ -5,12 +5,10 @@ import './Home.scss';
 import { Character } from "./Character";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 export const Home = () => {
   const [page, setPage] = useState<number>(1);
   const [countOfPages, setCountOfPages] = useState<number>(1)
   const [characters, setCharacters] = useState<CharacterInterface[]>([])
-  const [isloaderVisible, setIsLoaderVisible] = useState<boolean>(true)
 
   const getCharacters = async (currentPage: number) => {
     const response: CharactersObject = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPage}`).then(data => data.json())
@@ -30,7 +28,7 @@ export const Home = () => {
   }, [])
 
   return (
-    <>
+    <section className="home">
       <h1 className="home__title">Characters</h1>
       <div className="container-fluid d-flex justify-content-between p-0">
         <div className="row g-0 g-sm-5">
@@ -46,7 +44,7 @@ export const Home = () => {
         page={page}
         onChange={handlePageChange}
       />
-    </>
+    </section>
   )
 }
 
