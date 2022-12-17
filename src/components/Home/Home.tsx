@@ -1,8 +1,8 @@
 import { Pagination } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
 import { CharacterInterface, CharactersObject } from "./types";
-import './Home.scss';
 import { Character } from "./Character";
+import './Home.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const Home = () => {
@@ -16,15 +16,34 @@ export const Home = () => {
     setCharacters(response.results)
   }
 
+  const updateURL = (newPage: number) => {
+    const url = window.location.pathname
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set("page", newPage.toString())
+
+    window.history.replaceState({}, '', url + '?' + urlParams);
+  }
+
   const handlePageChange = async (
     _event: ChangeEvent<unknown>,
     newPage: number) => {
+    updateURL(newPage)
     setPage(newPage)
     getCharacters(newPage)
   }
 
   useEffect(() => {
-    getCharacters(page)
+    const urlParams = new URLSearchParams(window.location.search)
+    const urlParamPage = urlParams.get("page")
+
+    if (urlParamPage) {
+      setPage(+urlParamPage)
+      getCharacters(+urlParamPage)
+    } else {
+      getCharacters(page)
+    }
+
+    
   }, [])
 
   return (
@@ -47,4 +66,3 @@ export const Home = () => {
     </section>
   )
 }
-
