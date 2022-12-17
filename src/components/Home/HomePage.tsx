@@ -5,7 +5,7 @@ import '../../styles/components/HomePage.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CharacterInterface, CharactersObject } from "../../types/Characters";
 
-export const Home = () => {
+export const HomePage = () => {
   const [page, setPage] = useState<number>(1);
   const [countOfPages, setCountOfPages] = useState<number>(1)
   const [characters, setCharacters] = useState<CharacterInterface[]>([])
