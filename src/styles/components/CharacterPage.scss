@@ -1,0 +1,60 @@
+@import '../utils.scss';
+
+.character-page {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  padding: 20px 40px;
+
+  @include phones {
+    padding: 15px;
+  }
+
+  &__image {
+    height: 300px;
+    width: 300px;
+    margin-bottom: 10px;
+
+    @include tablets {
+      height: auto;
+      width: 100%;
+    }
+  }
+
+  &__info {
+    &__title {
+      margin-bottom: 10px;
+    }
+
+    &__item {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__episodes {
+    display: flex;
+    flex-wrap: wrap;
+
+    &-title {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    &__episode {
+      font-size: 1rem;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #cfcfcf;
+      transition: .3s;
+
+      &:hover {
+        cursor: pointer;
+        color: $secondary-text;
+        background-color: $hover-text;
+      }
+    }
+  }
+}
