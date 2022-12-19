@@ -1,9 +1,9 @@
+import '../../styles/components/NotFound.scss'
+
 export const NotFound = () => {
   return(
-    <main>
-      <form action="">
-        
-      </form>
+    <main className='not-found'>
+      <h1>Page not found</h1>
     </main>
   )
 }

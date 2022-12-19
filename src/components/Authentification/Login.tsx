@@ -1,13 +1,36 @@
 import { useForm } from 'react-hook-form'
-import type { SubmitHandler, FieldValues } from 'react-hook-form'
+import type { FieldValues } from 'react-hook-form'
 import '../../styles/components/Authentification.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { UserInterface } from '../../types/User'
+import { useDispatch } from 'react-redux'
+import { logIn, rememberUserLogIn } from '../../slices/authSlice'
 
 export const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const [message, setMessage] = useState("")
+  const [rememberCheckbox, setRememberCheckbox] = useState(false)
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const onSubmit = async (data: FieldValues) => {
+    const res = await fetch("http://localhost:3001/api/user/login", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(data => data.json())
+
+    setMessage(res.message)
+
+    if (res.success) {
+      const user: UserInterface = res.user
+      rememberCheckbox ? dispatch(rememberUserLogIn(user)) : dispatch(logIn(user))
+      setTimeout(() => {
+        navigate("/account")
+      }, 1000)
+    }
   }
 
   return (
@@ -27,22 +50,32 @@ export const Login = () => {
         <input
           className='authentification__login__input'
           id="password"
-          type="text"
+          type="password"
           placeholder={"Input your password"}
-          {...register("password", { required: true, 
+          {...register("password", {
+            required: true,
             minLength: {
               value: 6,
               message: "Password must be longer than 6 characters"
-            }, 
+            },
             maxLength: {
               value: 32,
               message: "Password must be shorter than 32 characters"
-            }, })} />
-           {errors.password && 
-            <span className='authentification__login__error'>{errors.password.message?.toString()}</span>}
+            },
+          })} />
+        <div className='authentification__login__remember-me'>
+          <h6 className='authentification__login__remember-me__title'>Remember me</h6>
+          <input
+            checked={rememberCheckbox}
+            onChange={() => setRememberCheckbox(state => !state)} type="checkbox" />
+        </div>
+
+        {errors.password && <span className='authentification__login__error'>{errors.password.message?.toString()}</span>}
+        {message && <span className='authentification__register__error'>{message}</span>}
+
         <input className='authentification__login__submit' type="submit" />
       </form>
-      <p className='authentification__login__link'>Don't have an account yet? <Link to="/register">Register here</Link></p>
+      <p className='authentification__link'>Don't have an account yet? <Link to="/register">Register here</Link></p>
     </main>
   )
 }

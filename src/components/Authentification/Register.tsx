@@ -1,20 +1,42 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import '../../styles/components/Authentification.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FieldValues } from 'react-hook-form/dist/types'
 import { useForm } from 'react-hook-form'
+import { UserInterface } from '../../types/User'
+import { useDispatch } from 'react-redux'
+import { logIn, rememberUserLogIn } from '../../slices/authSlice'
 
 export const Register = () => {
   const { register, handleSubmit, getValues, formState: { errors } } = useForm()
+  const [message, setMessage] = useState("")
+  const [rememberCheckbox, setRememberCheckbox] = useState(false)
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const onSubmitHandler = async (data: FieldValues) => {
+    const res = await fetch("http://localhost:3001/api/user/create", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(data => data.json())
+
+    setMessage(res.message)
+
+    if (res.success) {
+      const user: UserInterface = res.user
+      rememberCheckbox ? dispatch(rememberUserLogIn(user)) : dispatch(logIn(user))
+      setTimeout(() => {
+        navigate("/account")
+      }, 1000)
+    }
   }
 
   return (
     <main className="authentification">
       <h1 className='authentification__title'>Registration</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className='authentification__register'>
+      <form onSubmit={handleSubmit(onSubmitHandler)} className='authentification__register'>
         <label
           htmlFor="email" className='authentification__register__title'>Email</label>
         <input
@@ -41,13 +63,12 @@ export const Register = () => {
               message: "Password must be shorter than 32 characters"
             },
           })} />
-        {errors.password && <span className='authentification__register__error'>{errors.password.message?.toString()}</span>}
         <label
           htmlFor="passwordRepeat" className='authentification__register__title'>Repeat password</label>
         <input
           className='authentification__register__input'
           id="passwordRepeat"
-          type="text"
+          type="password"
           placeholder={"Input your password"}
           {...register("passwordRepeat", {
             required: true,
@@ -64,10 +85,18 @@ export const Register = () => {
               return password === value || "Passwords should match!"
             }
           })} />
+        <div className='authentification__register__remember-me'>
+          <h6 className='authentification__register__remember-me__title'>Remember me</h6>
+          <input
+            checked={rememberCheckbox}
+            onChange={() => setRememberCheckbox(state => !state)} type="checkbox" />
+        </div>
         {errors.passwordRepeat && <span className='authentification__register__error'>{errors.passwordRepeat.message?.toString()}</span>}
+        {message && <span className='authentification__register__error'>{message}</span>}
         <input className='authentification__register__submit' type="submit" />
       </form>
-      <p>Already have Account? <Link to="/login">Login here</Link></p>
+      <p className='authentification__link'>Already have Account? <Link to="/login">Login here</Link></p>
     </main>
   )
 }
+

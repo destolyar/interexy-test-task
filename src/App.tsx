@@ -5,6 +5,7 @@ import { HomePage } from './components/Home/HomePage';
 import { NotFound } from './components/NotFound/NotFound';
 import { Register } from './components/Authentification/Register';
 import { Login } from './components/Authentification/Login';
+import { Account } from './components/Account/Account';
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
           <Route path='/register' element={<Register/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/character/:id' element={<CharacterPage/>} />
+          <Route path='/account' element={<Account/>}/>
           <Route path='*' element={<NotFound/>} />
         </Routes>
       </Layout>
