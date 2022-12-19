@@ -10,8 +10,8 @@ import env from "react-dotenv"
 
 export const Register = () => {
   const { register, handleSubmit, getValues, formState: { errors } } = useForm()
-  const [message, setMessage] = useState("")
-  const [rememberCheckbox, setRememberCheckbox] = useState(false)
+  const [message, setMessage] = useState<string>("")
+  const [rememberCheckbox, setRememberCheckbox] = useState<boolean>(false)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -100,4 +100,3 @@ export const Register = () => {
     </main>
   )
 }
-

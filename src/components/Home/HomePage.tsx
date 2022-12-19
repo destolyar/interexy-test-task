@@ -1,9 +1,10 @@
 import { Pagination } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Character } from "./Character";
+import { CharacterCard } from "./CharacterCard";
 import '../../styles/components/HomePage.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CharacterInterface, CharactersObject } from "../../types/Characters";
+import env from "react-dotenv";
 
 export const HomePage = () => {
   const [page, setPage] = useState<number>(1);
@@ -11,7 +12,7 @@ export const HomePage = () => {
   const [characters, setCharacters] = useState<CharacterInterface[]>([])
 
   const getCharacters = async (currentPage: number) => {
-    const response: CharactersObject = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPage}`).then(data => data.json())
+    const response: CharactersObject = await fetch(env["CHARACTERS_API"] + `character?page=${currentPage}`).then(data => data.json())
     setCountOfPages(response.info.pages)
     setCharacters(response.results)
   }
@@ -23,7 +24,6 @@ export const HomePage = () => {
 
     window.history.replaceState({}, '', url + '?' + urlParams);
   }
-
 
   const handlePageChange = async (
     _event: ChangeEvent<unknown>,
@@ -48,7 +48,7 @@ export const HomePage = () => {
       getCharacters(page)
     }
 
-    
+
   }, [])
 
   return (
@@ -57,7 +57,7 @@ export const HomePage = () => {
       <div className="container-fluid d-flex justify-content-between p-0">
         <div className="row g-0 g-sm-5">
           {characters.map((character, index) =>
-            <Character characterInfo={character} key={index} />
+            <CharacterCard characterInfo={character} key={index} />
           )}
         </div>
       </div>

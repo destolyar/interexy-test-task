@@ -7,8 +7,8 @@ import { FieldValues, useForm } from "react-hook-form"
 import env from "react-dotenv"
 import '../../styles/components/AccountPage.scss'
 
-export const Account = () => {
-  const [message, setMessage] = useState("")
+export const AccountPage = () => {
+  const [message, setMessage] = useState<string>("")
   const { register, handleSubmit, formState: { errors } } = useForm()
 
   const user = useSelector((state: RootState) => state.auth.authorizedUser)
