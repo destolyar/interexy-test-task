@@ -11,6 +11,6 @@ The backend is also deployed, so you do not need to run something locally. But i
 ### And this is for running the project:
 #### `npm start` or `yarn start`
 
-#### You can also find backend repository [here](https://github.com/destolyar/interexy-test-task-server)
+### You can also find backend repository [here](https://github.com/destolyar/interexy-test-task-server)
 
-#### Thanks for your attention!
+### Thanks for your attention!
