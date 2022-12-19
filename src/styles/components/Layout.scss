@@ -1,10 +1,12 @@
 @import '../utils.scss';
 
-.header, .footer {
+.header,
+.footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
+  height: 40px;
 
   @include phones {
     padding: 0 15px;
@@ -13,7 +15,9 @@
 
 
 .header {
+  height: 60px;
   border-bottom: 1px solid #cfcfcf;
+
   &__links {
     display: flex;
     align-items: center;
@@ -29,22 +33,65 @@
         color: $hover-text;
       }
     }
+
+    &__logout {
+      margin-left: 20px;
+      padding: 10px;
+      text-decoration: none;
+      color: $main-text;
+      border-radius: 10px;
+      background-color: transparent;
+      border: 1px solid red;
+      transition: .3s;
+
+      &:hover {
+        color: $secondary-text;
+        background-color: $logout-button-color;
+      }
+    }
   }
 
   &__user {
     display: flex;
     align-items: center;
   }
+
+  &__actions {
+    &__register {
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: $secondary-text;
+      transition: .3s;
+      border: 1px solid #6579f4;
+      background-color: $button-color;
+
+      &:hover {
+        color: $secondary-text;
+        transform: scale(1.01);
+      }
+    }
+
+    &__login {
+      padding: 5px 10px;
+      margin-right: 20px;
+      border-radius: 5px;
+      transition: .3s;
+      text-decoration: none;
+      border: 1px solid #6579f4;
+
+      &:hover {
+        transform: scale(1.01);
+      }
+    }
+  }
 }
 
 .footer {
-  position: fixed;
   width: 100%;
-  bottom: 0px;
-  height: 40px;
   justify-content: center;
   background-color: $footer-background;
-  
+
   &__title {
     font-size: 0.8rem;
     color: $secondary-text;

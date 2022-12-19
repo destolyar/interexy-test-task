@@ -1,0 +1,73 @@
+@import '../utils.scss';
+
+.authentification {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px);
+
+  @include tablets {
+    padding: 0 20px;
+  }
+
+  &__title {
+    margin-bottom: 20px;
+    font-size: 1.7rem;
+  }
+
+  &__register, &__login {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+
+    @include tablets {
+      width: 100%;
+    }
+
+    &__title {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    &__input {
+      height: 40px;
+      margin-bottom: 15px;
+    }
+
+    &__link {
+      margin-top: 20px;
+    }
+
+    &__error {
+      margin-bottom: 15px;
+    }
+
+    &__remember-me {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+
+      &__title {
+        margin-right: 10px;
+      }
+    }
+
+    &__submit {
+      margin-top: 5px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 0;
+      color: $secondary-text;
+      background-color: $button-color;
+
+      &:hover {
+        transform: scale(1.01);
+      }
+    }
+  }
+
+  &__link {
+    margin-top: 10px;
+  }
+}

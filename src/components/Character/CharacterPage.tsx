@@ -17,8 +17,8 @@ export const CharacterPage = () => {
   }, [])
 
   return (
-    (character.name) ?
-      <main className="character-page">
+    <main className="character-page">
+      {character.name ? <>
         <img className="character-page__image" src={character.image} alt={character.name} />
         <section className="character-page__info">
           <h1 className="character-page__info__title">{character.name}</h1>
@@ -31,12 +31,13 @@ export const CharacterPage = () => {
 
           <h2 className="character-page__episodes-title">Episodes:</h2>
           <section className="character-page__episodes">
-            {character.episode.map((episode, index) => 
-              <div 
+            {character.episode.map((episode, index) =>
+              <div
                 key={index}
                 className="character-page__episodes__episode">Episode {episode.split("/").slice(-1)}</div>)}
           </section>
         </section>
-      </main> : null
+      </> : null}
+    </main>
   )
 }

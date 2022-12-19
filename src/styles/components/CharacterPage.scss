@@ -3,7 +3,7 @@
 .character-page {
   display: flex;
   flex-direction: column;
-  margin-bottom: 40px;
+  min-height: calc(100vh - 100px);
   padding: 20px 40px;
 
   @include phones {
