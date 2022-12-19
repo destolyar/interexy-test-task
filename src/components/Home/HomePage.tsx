@@ -1,6 +1,6 @@
 import { Pagination } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Character } from "./Character";
+import { CharacterCard } from "./CharacterCard";
 import '../../styles/components/HomePage.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CharacterInterface, CharactersObject } from "../../types/Characters";
@@ -23,7 +23,6 @@ export const HomePage = () => {
 
     window.history.replaceState({}, '', url + '?' + urlParams);
   }
-
 
   const handlePageChange = async (
     _event: ChangeEvent<unknown>,
@@ -48,7 +47,7 @@ export const HomePage = () => {
       getCharacters(page)
     }
 
-    
+
   }, [])
 
   return (
@@ -57,7 +56,7 @@ export const HomePage = () => {
       <div className="container-fluid d-flex justify-content-between p-0">
         <div className="row g-0 g-sm-5">
           {characters.map((character, index) =>
-            <Character characterInfo={character} key={index} />
+            <CharacterCard characterInfo={character} key={index} />
           )}
         </div>
       </div>
