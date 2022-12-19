@@ -1,12 +1,12 @@
 import { useForm } from 'react-hook-form'
 import type { FieldValues } from 'react-hook-form'
-import '../../styles/components/Authentification.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { UserInterface } from '../../types/User'
 import { useDispatch } from 'react-redux'
 import { logIn, rememberUserLogIn } from '../../slices/authSlice'
-import env from 'react-dotenv'
+import '../../styles/components/Authentification.scss'
+
 
 export const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
@@ -17,7 +17,7 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async (data: FieldValues) => {
-    const res = await fetch(env["API_URL"] + "user/login", {
+    const res = await fetch("https://vladislav-metik-interexy.herokuapp.com/api/user/login", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)

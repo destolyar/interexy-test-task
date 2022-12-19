@@ -4,7 +4,6 @@ import { CharacterCard } from "./CharacterCard";
 import '../../styles/components/HomePage.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CharacterInterface, CharactersObject } from "../../types/Characters";
-import env from "react-dotenv";
 
 export const HomePage = () => {
   const [page, setPage] = useState<number>(1);
@@ -12,7 +11,7 @@ export const HomePage = () => {
   const [characters, setCharacters] = useState<CharacterInterface[]>([])
 
   const getCharacters = async (currentPage: number) => {
-    const response: CharactersObject = await fetch(env["CHARACTERS_API"] + `character?page=${currentPage}`).then(data => data.json())
+    const response: CharactersObject = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPage}`).then(data => data.json())
     setCountOfPages(response.info.pages)
     setCharacters(response.results)
   }

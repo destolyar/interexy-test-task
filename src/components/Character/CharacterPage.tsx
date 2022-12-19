@@ -2,14 +2,13 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { CharacterInterface } from "../../types/Characters"
 import '../../styles/components/CharacterPage.scss'
-import env from "react-dotenv"
 
 export const CharacterPage = () => {
   const { id } = useParams()
   const [character, setCharacter] = useState<CharacterInterface>({} as CharacterInterface)
 
   const getCharacter = async () => {
-    const character = await fetch(env["CHARACTERS_API"] + `character/${id}`).then(data => data.json())
+    const character = await fetch(`https://rickandmortyapi.com/api/character/${id}`).then(data => data.json())
     setCharacter(character)
   }
 

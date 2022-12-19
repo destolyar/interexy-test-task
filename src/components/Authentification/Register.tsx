@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form'
 import { UserInterface } from '../../types/User'
 import { useDispatch } from 'react-redux'
 import { logIn, rememberUserLogIn } from '../../slices/authSlice'
-import env from "react-dotenv"
 
 export const Register = () => {
   const { register, handleSubmit, getValues, formState: { errors } } = useForm()
@@ -17,7 +16,7 @@ export const Register = () => {
   const dispatch = useDispatch()
 
   const onSubmitHandler = async (data: FieldValues) => {
-    const res = await fetch(env['APY_URL'] + "user/create", {
+    const res = await fetch("https://vladislav-metik-interexy.herokuapp.com/api/user/create", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
