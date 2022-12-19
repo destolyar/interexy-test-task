@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { RootState } from "../../store"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { updateUser } from "../../slices/authSlice"
 import { FieldValues, useForm } from "react-hook-form"
 import '../../styles/components/AccountPage.scss'
@@ -14,15 +14,17 @@ export const AccountPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  if (!user) {
-    navigate("/login")
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate("/login")
+    }
+  }, [user])
 
   const onSubmitHandler = async (data: FieldValues) => {
     const res = await fetch("https://vladislav-metik-interexy.herokuapp.com/api/user/change", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({...data, userId: user?._id})
+      body: JSON.stringify({ ...data, userId: user?._id })
     }).then(data => data.json())
 
     setMessage(res.message)
