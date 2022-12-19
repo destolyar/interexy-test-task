@@ -4,8 +4,8 @@ import { RootState } from "../../store"
 import { useState } from "react"
 import { updateUser } from "../../slices/authSlice"
 import { FieldValues, useForm } from "react-hook-form"
+import env from "react-dotenv"
 import '../../styles/components/AccountPage.scss'
-
 
 export const Account = () => {
   const [message, setMessage] = useState("")
@@ -20,7 +20,7 @@ export const Account = () => {
   }
 
   const onSubmitHandler = async (data: FieldValues) => {
-    const res = await fetch("http://localhost:3001/api/user/change", {
+    const res = await fetch(env["API_URL"] + "user/change", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({...data, userId: user?._id})

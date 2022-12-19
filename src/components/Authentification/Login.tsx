@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { UserInterface } from '../../types/User'
 import { useDispatch } from 'react-redux'
 import { logIn, rememberUserLogIn } from '../../slices/authSlice'
+import env from 'react-dotenv'
 
 export const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
@@ -16,7 +17,7 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async (data: FieldValues) => {
-    const res = await fetch("http://localhost:3001/api/user/login", {
+    const res = await fetch(env["API_URL"] + "user/login", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
